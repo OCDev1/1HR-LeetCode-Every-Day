@@ -1,0 +1,23 @@
+# Contains duplicate (O(n)):
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        myset = set()
+        for num in nums:
+            if num in myset:
+                return True
+            else:
+                myset.add(num)
+        
+        return False
+
+# Two integer sum (O(n)):
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        mymap = {}
+
+        for i,num in enumerate(nums):
+            comp = target - num    #comp = complement
+            if comp in mymap:   #if the difference is in the map return the index of it and current index
+                return [mymap[comp], i]
+            mymap[num] = i    #if not then add the current number to the hashmap and continue
+                     
