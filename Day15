@@ -1,15 +1,20 @@
-# Buy and sell stock
-# O(n):
-class Solution:    # 2 pointer technique
+# Buy and sell stock NOTE: optimal solution is at the bottom
+
+# naive (O(n^3)):
+class Solution:    # calculating every option in every window size in every offset
     def maxProfit(self, prices: List[int]) -> int:
-        l, r = 0,1
+        start = 0
         max_profit = 0
-        for r in range(len(prices)):
-            if prices[r] < prices[l]:
-                l = r
-            max_profit = max(max_profit, prices[r]-prices[l])
-            
+
+        for win_size in range(2, len(prices)+1):
+            start = 0
+            while start+win_size <= len(prices):
+                for i in range(start, start+win_size):
+                    max_profit = max(max_profit, prices[i]-prices[start])
+                start +=1
+        
         return max_profit
+
 
 # O(n^2):
 class Solution:    # you dont need to calculate all options in every window because there exists a window size and offset for every option to be calculated
@@ -25,17 +30,15 @@ class Solution:    # you dont need to calculate all options in every window beca
         
         return max_profit
 
-# naive (O(n^3)):
-class Solution:    # calculating every option in every window size in every offset
-    def maxProfit(self, prices: List[int]) -> int:
-        start = 0
-        max_profit = 0
 
-        for win_size in range(2, len(prices)+1):
-            start = 0
-            while start+win_size <= len(prices):
-                for i in range(start, start+win_size):
-                    max_profit = max(max_profit, prices[i]-prices[start])
-                start +=1
-        
+# O(n):
+class Solution:    # 2 pointer technique
+    def maxProfit(self, prices: List[int]) -> int:
+        l, r = 0,1
+        max_profit = 0
+        for r in range(len(prices)):
+            if prices[r] < prices[l]:
+                l = r
+            max_profit = max(max_profit, prices[r]-prices[l])
+            
         return max_profit
