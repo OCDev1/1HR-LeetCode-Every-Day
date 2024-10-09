@@ -1,0 +1,18 @@
+# Valid parenthesis
+# O(n):
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        # Dictionary to map closing to opening brackets
+        bracket_map = {')': '(', '}': '{', ']': '['}
+        
+        for c in s:
+            if c in bracket_map.values():  # If it's an opening bracket
+                stack.append(c)
+            else:  # If it's a closing bracket
+                if stack and stack[-1] == bracket_map[c]:  # Correct matching
+                    stack.pop()  # Pop the corresponding opening bracket
+                else:
+                    return False  # Mismatch or stack is empty
+        
+        return not stack  # Return True if the stack is empty (all matched)
