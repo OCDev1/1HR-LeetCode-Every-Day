@@ -1,0 +1,57 @@
+# Search 2D matrix
+# O(logn*logm)
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        rows,cols = len(matrix), len(matrix[0])
+        top,bot = 0,rows-1
+
+        # find the correct row (array)
+        while top <= bot:
+            row = (top+bot) // 2
+            if target < matrix[row][0]:
+                bot = row - 1
+            elif target > matrix[row][-1]:
+                top = row +1
+            else:
+                break
+        l,r = 0,cols-1
+        while l <= r:
+            middle = (r+l)//2
+            middle_val = matrix[row][middle]
+
+            if middle_val == target:
+                return True
+            elif middle_val < target:
+                l = middle + 1
+            else:
+                r = middle - 1
+
+        return False
+
+# more readable but slicing costs O(n):
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        def binSearch(arr: List[int], target) -> bool:
+            if not arr:
+                return False
+            middle = len(arr)//2
+            if arr[middle] == target:
+                return True
+            elif arr[middle] < target:
+                return binSearch(arr[middle+1:],target)
+            else:
+                return binSearch(arr[:middle],target)
+
+        if not matrix:
+            return False
+
+        middle_arr = len(matrix)//2
+
+        if matrix[middle_arr][0] > target:
+            return self.searchMatrix(matrix[:middle_arr], target)
+        
+        elif matrix[middle_arr][len(matrix[middle_arr])-1] < target:
+            return self.searchMatrix(matrix[middle_arr + 1:], target)
+
+        else:
+            return binSearch(matrix[middle_arr], target)
