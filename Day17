@@ -1,7 +1,7 @@
 # longest repeating character replacement
 # O(n) time, O(1) space:
 class Solution:
-    def characterReplacement(self, s: str, k: int) -> int:
+    def characterReplacement(self, s: str, k: int) -> int: 
         if len(s) == 0:
             return 0
 
