@@ -1,5 +1,5 @@
 # Encode and decode strings
-# time: O(n)
+# time: O(n) 
 class Solution:
     def encode(self,strs):
         res = ""
