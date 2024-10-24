@@ -6,7 +6,7 @@ class Solution:
 
         def is_palindrome(string,l,r) -> bool:
             while l<r:
-                if string[l] == string[r]:
+                if string[l] == string[r]: 
                     l+=1
                     r-=1
                 else:
