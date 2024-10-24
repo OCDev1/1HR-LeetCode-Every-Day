@@ -2,7 +2,7 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
         if sum(nums)%2 != 0:
-            return False
+            return False 
         
         target = sum(nums)//2
 
