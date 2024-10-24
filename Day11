@@ -4,7 +4,7 @@ class Solution:
         myset = set()
         for num in nums:
             if num in myset:
-                return True
+                return True 
             else:
                 myset.add(num)
         
