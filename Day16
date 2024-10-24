@@ -2,7 +2,7 @@
 # O(n):    
 # observation: we shrink the left border of the window to the first letter after the duplicate (the first of the two) and continue from there
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
+    def lengthOfLongestSubstring(self, s: str) -> int: 
         if len(s) == 0:
             return 0
 
