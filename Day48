@@ -1,0 +1,61 @@
+# Binary Tree Diameter
+# O(n) time and space
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        self.diam = 0
+
+        # find depth of subtree
+        def depthOfSub(root:Optional[TreeNode]) -> int:
+            if not root:
+                return 0
+            
+            # get depth of left, right subtrees
+            depthR = depthOfSub(root.right)
+            depthL = depthOfSub(root.left)
+
+            # update max diamter
+            self.diam = max(depthR+depthL, self.diam)
+
+            # return depth of current node
+            return 1 + max(depthR,depthL)
+        
+        depthOfSub(root)
+        return self.diam
+
+# Naive solution
+# O(n^2)
+
+class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        diam = 0
+        
+        left = self.depthOfSub(root.left) if root.left else 0  # find height of left and right subtrees
+        right = self.depthOfSub(root.right) if root.right else 0
+        diam = diam + left + right  # calculate diameter
+        diamR = self.diameterOfBinaryTree(root.right) if root.right else 0  # check recursively for left and right subtrees
+        diamL = self.diameterOfBinaryTree(root.left) if root.left else 0
+        res = max(diam, diamR, diamL)
+
+        return res
+
+    # find depth of subtree
+    def depthOfSub(self, root:Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        depthR = self.depthOfSub(root.right) if root.right else 0
+        depthL = self.depthOfSub(root.left) if root.left else 0
+        return 1 + max(depthR, depthL)
+
+
+        
+
