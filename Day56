@@ -1,0 +1,49 @@
+# Valid Binary Search Tree
+# O(n) time, theta(n) space:
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        in_order = []
+
+        # scan in order
+        def inOrder(root: Optional[TreeNode]) -> None:
+            if not root:
+                return
+            inOrder(root.left)
+            in_order.append(root.val)
+            inOrder(root.right)
+            return
+
+        inOrder(root)
+
+        # check sorted
+        for i in range(len(in_order)-1):
+            if in_order[i] < in_order[i+1]:
+                continue
+            else:
+                return False
+        return True
+
+# O(n) time O(height of tree) space:
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        # val needs to be between left and right boundaries
+        def valid(node, left, right) -> bool:
+            if not node:
+                return True
+            # subtree with no children is already sorted
+            if not (right > node.val > left):
+                return False
+            
+            # recursion
+            # when going left then right boundary is updated
+            # going right then left boundary is updated
+            return valid(node.left, left, node.val) and valid(node.right, node.val, right)
+        
+        return valid(root, float("-inf"), float("inf"))
