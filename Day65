@@ -12,7 +12,7 @@ class Solution:
 
             # recursion with and without i'th member
             cur_subset.append(nums[i])
-            helper(i+1) # with i'th member
+            helper(i+1) # with i'th member, this call goes all the way down and adds all subsets in this path before changing cur_subset
             cur_subset.pop()
             helper(i+1) # without i'th member
             return
