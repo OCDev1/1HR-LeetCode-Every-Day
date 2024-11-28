@@ -1,0 +1,45 @@
+# Subsets II
+# O(n*2^n) time, O(n) space:
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        cur_set = []
+
+        def helper(i):
+            if i >= len(nums):
+                res.append(cur_set.copy())
+                return
+            cur_set.append(nums[i])
+            helper(i+1)
+            cur_set.pop()
+            
+            # this helps us avoid duplicate sets by skipping all instances of current number
+            while i < len(nums) - 1 and nums[i] == nums[i+1]:   # move until we reach new number
+                i += 1
+            helper(i+1) # explore path without the current number
+        helper(0)
+        return res
+
+# O(n*2^n) time and space:
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        counters = []   # counts for all sets in res, to detect duplicates
+        cur_subset = []
+
+        def dfs(i):
+            if i >= len(nums): # we've reached a leaf, maybe add it to result
+                cur_count = collections.Counter(cur_subset) # create a count for the current set (O(n))
+                if cur_count not in counters:   # check if exists a set with a count like this, if not add the set and it's count
+                    counters.append(cur_count)
+                    res.append(cur_subset.copy())
+                return
+            
+            cur_subset.append(nums[i])  # add nums[i]
+            dfs(i+1)    # explore this option
+            cur_subset.pop()    # remove nums[i]
+            dfs(i+1)    # explore this option
+
+        dfs(0)
+        return res
