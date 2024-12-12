@@ -10,7 +10,7 @@ class Solution:
             if ((r, c) in visit or 
                 r < 0 or c < 0 or 
                 r == ROWS or c == COLS or 
-                heights[r][c] < prevHeight
+                heights[r][c] < prevHeight # prev cell cant be reached from this cell
             ):
                 return
             
